@@ -7,6 +7,8 @@ public class Track {
 
     // If true, does what it says. If false, will drop character at last spot before crash.
     protected boolean crashRevertsToBeginning;
+    //Stores the actual grid.
+    protected CellType[][] map;
 
     //Start position management. If the boolean is true, the car will be randomly placed on the starting line.
     protected boolean useDefaultRandomStart;
