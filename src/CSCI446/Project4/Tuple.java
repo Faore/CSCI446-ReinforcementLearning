@@ -11,4 +11,17 @@ public class Tuple {
         this.x = x;
         this.y = y;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        try {
+            //Check for equality (Not identicality).
+            if(this.x == ((Tuple) obj).x && this.y == ((Tuple) obj).x) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return super.equals(obj);
+        }
+    }
 }

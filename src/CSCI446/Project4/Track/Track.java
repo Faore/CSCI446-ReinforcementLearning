@@ -47,8 +47,11 @@ public class Track {
         }
     }
 
-    public void makeMove(int accelerationX, int accelerationY) {
-
+    public void makeMove(int accelerationX, int accelerationY) throws Exception {
+        //Can't let them accelerate too fast.
+        if(accelerationX > 1 || accelerationX < -1 || accelerationY > 1 || accelerationX < -1) {
+            throw new Exception("Agent attempted to accelerate greater than allowed.");
+        }
     }
 
     /*
