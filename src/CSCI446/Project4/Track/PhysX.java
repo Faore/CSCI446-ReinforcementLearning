@@ -5,4 +5,11 @@ package CSCI446.Project4.Track;
  */
 public class PhysX {
 
+    protected Track track;
+
+    protected PhysX(Track track) {
+        this.track = track;
+    }
+
+
 }
