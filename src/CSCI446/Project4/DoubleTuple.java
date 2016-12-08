@@ -1,13 +1,13 @@
 package CSCI446.Project4;
 
 /**
- * Created by cetho on 12/4/2016.
+ * Created by cetho on 12/8/2016.
  */
-public class Tuple {
-    public final int x;
-    public final int y;
+public class DoubleTuple {
+    public final double x;
+    public final double y;
 
-    public Tuple(int x, int y) {
+    public DoubleTuple(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -16,7 +16,7 @@ public class Tuple {
     public boolean equals(Object obj) {
         try {
             //Check for equality (Not identicality).
-            if(this.x == ((Tuple) obj).x && this.y == ((Tuple) obj).x) {
+            if(this.x == ((Tuple) obj).x && this.y == ((DoubleTuple) obj).x) {
                 return true;
             }
             return false;

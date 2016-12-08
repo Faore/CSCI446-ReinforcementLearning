@@ -71,20 +71,23 @@ public class PhysX {
      * Get the cells this car would "pass through".
      *
      * To get the intersecting cells, the function will find the longest distance traveled in X or Y.
-     * The largest axis's travel distance will be split up J equal pieces. Where J is the velocity for that axis.
-     * Floating point values will be calculated along the vector for these J points.
+     * The largest axis's travel distance will be split up 2J equal pieces. Where J is the velocity for that axis.
+     * Floating point values will be calculated along the vector for these 2J points.
      * The cell that these values appear in will become the intersecting cells.
      */
     protected Tuple[] getIntersectingCells(State state) {
         ArrayList<Tuple> intesectingCells = new ArrayList<Tuple>();
 
         int numberOfSplits;
+        boolean useXAxis;
         //Find out if the magnitude of X or Y's velocity is higher.
         if(Math.abs(state.velocityX) > Math.abs(state.velocityY)) {
             //X has the greater magnitude
-            numberOfSplits = Math.abs(state.velocityX);
+            numberOfSplits = Math.abs(state.velocityX * 2);
+            useXAxis = true;
         } else {
-            numberOfSplits = Math.abs(state.velocityY);
+            numberOfSplits = Math.abs(state.velocityY * 2);
+            useXAxis =false;
         }
 
         //Line can be represented nicely in point-slope form.

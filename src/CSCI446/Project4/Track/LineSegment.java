@@ -1,6 +1,9 @@
 package CSCI446.Project4.Track;
 
+import CSCI446.Project4.DoubleTuple;
 import CSCI446.Project4.Tuple;
+
+import java.util.ArrayList;
 
 /**
  * Created by cetho on 12/5/2016.
@@ -37,7 +40,7 @@ public class LineSegment {
             throw new Exception("LineSegment: Attempted to get Y value for a vertical line.");
         }
         //Make sure the Y value is within the line segment
-        if(!((Y > point1.y && Y < point2.y) || (Y < point1.y && Y > point2.y))) {
+        if(!((Y >= point1.y && Y <= point2.y) || (Y <= point1.y && Y >= point2.y))) {
             throw new Exception("LineSegment: Attempted to get value outside range of line segment.");
         }
 
@@ -54,5 +57,91 @@ public class LineSegment {
             throw new Exception("LineSegment: Attempted to get value outside range of line segment.");
         }
         return slope*(X - (double)point1.x) + (double)point1.y;
+    }
+
+    public DoubleTuple[] getPointsUsingXAxis(int numPoints) throws Exception {
+        if(horizontalLine || verticalLine) {
+            throw new Exception("Cannot build point list for horizontal or vertical line.");
+        }
+        double stepSize = Math.abs(point1.x - point2.x)/numPoints;
+        ArrayList<DoubleTuple> points = new ArrayList<DoubleTuple>();
+
+        if (point1.x < point2.x) {
+            //Start incrementing by step size
+             for(double x = point1.x; x <= point2.x; x += stepSize) {
+                 points.add(new DoubleTuple(x, getYValueForXValue(x)));
+             }
+        } else {
+            //Start incrementing by step size
+            for(double x = point2.x; x <= point1.x; x += stepSize) {
+                points.add(new DoubleTuple(x, getYValueForXValue(x)));
+            }
+        }
+        DoubleTuple[] arr = new DoubleTuple[points.size()];
+        points.toArray(arr);
+        return arr;
+    }
+
+    public DoubleTuple[] getPointsUsingYAxis(int numPoints) throws Exception {
+        if(horizontalLine || verticalLine) {
+            throw new Exception("Cannot build point list for horizontal or vertical line.");
+        }
+        double stepSize = Math.abs((double)point1.y - (double)point2.y)/numPoints;
+        ArrayList<DoubleTuple> points = new ArrayList<DoubleTuple>();
+
+        if (point1.y < point2.y) {
+            //Start incrementing by step size
+            for(double y = point1.y; y <= point2.y; y += stepSize) {
+                points.add(new DoubleTuple(getXValueForYValue(y), y));
+            }
+        } else {
+            //Start incrementing by step size
+            for(double y = point2.y; y <= point1.y; y += stepSize) {
+                points.add(new DoubleTuple(getXValueForYValue(y), y));
+            }
+        }
+        DoubleTuple[] arr = new DoubleTuple[points.size()];
+        points.toArray(arr);
+        return arr;
+    }
+
+    public Tuple[]  discretizePoints(DoubleTuple[] arr) {
+        //Will always round down to nearest X and Y values. Casting to int conveniently does that.
+        ArrayList<Tuple> points = new ArrayList<Tuple>();
+        for(int i = 0; i < arr.length; i++) {
+            points.add(new Tuple((int) arr[i].x, (int) arr[i].y));
+        }
+        //Check for and remove duplicates.
+        boolean duplicates = true;
+        while (duplicates) {
+            duplicates = false;
+            duplicateCheck:
+            for(int i = 0; i < points.size(); i++) {
+                for(int j = 0; j < points.size(); j++) {
+                    if(i != j) {
+                        if(points.get(i).x == points.get(j).x) {
+                            if(points.get(i).y == points.get(j).y) {
+                                //Duplicate, remove one.
+                                points.remove(j);
+                                duplicates = true;
+                                break duplicateCheck;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        Tuple[] ret = new Tuple[points.size()];
+        points.toArray(ret);
+        return ret;
+    }
+
+    public Tuple[] getIntersectingCellsY(int numPoints) throws Exception {
+        return discretizePoints(getPointsUsingYAxis(numPoints));
+    }
+    public Tuple[] getIntersectingCellsX(int numPoints) throws Exception {
+        return discretizePoints(getPointsUsingXAxis(numPoints));
     }
 }
