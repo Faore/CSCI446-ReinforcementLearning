@@ -46,25 +46,31 @@ public class PhysX {
         return new State(nextPositionX, nextPositionY, nextVelocityX, nextVelocityY);
     }
 
-    /*
-     * Simplest check: Does the car end in an invalid location?
-     */
-    protected boolean isValidEndLocation(State state) {
-        // Is it out of bounds?
-        if (
-                state.positionY >= track.map.length
-                || state.positionX >= track.map[0].length
-                || state.positionX < 0
-                || state.positionY < 0
-                ) {
-            return false;
+    Result findResult(State state) throws Exception {
+
+        Tuple[] checkCells = getIntersectingCells(state);
+
+        for(Tuple cell : checkCells) {
+            if(isOutOfBounds(cell)) {
+                return Result.Crash;
+            }
+            //Remember, that lovely map is accessed backwards.
+            if(this.track.map[cell.y][cell.x] == CellType.Wall) {
+                return Result.Crash;
+            }
+            if(this.track.map[cell.y][cell.x] == CellType.Finish) {
+                return Result.Finished;
+            }
         }
-        // Is it a wall?
-        if(track.map[state.positionY][state.positionX] == CellType.Wall) {
-            return false;
-        }
-        // Well, that's all the bad cases, so it must be in a valid location.
-        return true;
+
+        return Result.Success;
+    }
+
+    protected boolean isOutOfBounds(Tuple tuple) {
+        return tuple.y >= track.map.length
+                || tuple.x >= track.map[0].length
+                || tuple.x < 0
+                || tuple.y < 0;
     }
 
     /*
@@ -75,9 +81,7 @@ public class PhysX {
      * Floating point values will be calculated along the vector for these 2J points.
      * The cell that these values appear in will become the intersecting cells.
      */
-    protected Tuple[] getIntersectingCells(State state) {
-        ArrayList<Tuple> intesectingCells = new ArrayList<Tuple>();
-
+    protected Tuple[] getIntersectingCells(State state) throws Exception {
         int numberOfSplits;
         boolean useXAxis;
         //Find out if the magnitude of X or Y's velocity is higher.
@@ -94,9 +98,14 @@ public class PhysX {
         //There's a cool helper class aptly called LineSegment to help with some math.
 
         LineSegment line = new LineSegment(new Tuple(track.positionX, track.positionY), new Tuple(state.positionX, state.positionY), ((double)state.velocityY)/((double)state.velocityX));
+        if(state.velocityX == 0 && state.velocityY == 0) {
+            return new Tuple[]{new Tuple(state.positionX, state.positionY)};
+        }
 
-        //Convert the Tuple ArrayList to an array and return it;
-        Tuple[] returnArray = new Tuple[intesectingCells.size()];
-        return intesectingCells.toArray(returnArray);
+        if(useXAxis) {
+            return line.getIntersectingCellsX(numberOfSplits);
+        } else {
+            return line.getIntersectingCellsY(numberOfSplits);
+        }
     }
 }

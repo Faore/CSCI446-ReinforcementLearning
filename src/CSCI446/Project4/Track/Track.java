@@ -16,7 +16,7 @@ public class Track {
     protected PhysX physX;
 
     //Stores the actual grid and start cells.
-    protected CellType[][] map; //NOTE: MAP IS INDEXED VERTICALLY THEN HORIZONTALLY. (X,Y coordinate is at Y,X)
+    public final CellType[][] map; //NOTE: MAP IS INDEXED VERTICALLY THEN HORIZONTALLY. (X,Y coordinate is at Y,X)
     protected ArrayList<Tuple> startCells;
 
     //Start position management. If the boolean is true, the car will be randomly placed on the starting line.
@@ -38,6 +38,8 @@ public class Track {
 
         this.physX = new PhysX(this);
 
+        this.startCells = new ArrayList<Tuple>();
+
         for(int vert = 0; vert < this.map.length; vert++) {
             for (int hor = 0; hor < this.map[vert].length; hor++) {
                 if(this.map[vert][hor] == CellType.Start) {
@@ -45,13 +47,43 @@ public class Track {
                 }
             }
         }
+        //Randomly place the car on the start line.
+        Tuple startCell = this.startCells.get((int) (Math.random() * this.startCells.size()));
+        this.positionX = startCell.x;
+        this.positionY = startCell.y;
+        this.velocityX = 0;
+        this.velocityY = 0;
     }
 
-    public void makeMove(int accelerationX, int accelerationY) throws Exception {
+    public Result makeMove(int accelerationX, int accelerationY) throws Exception {
         //Can't let them accelerate too fast.
         if(accelerationX > 1 || accelerationX < -1 || accelerationY > 1 || accelerationX < -1) {
             throw new Exception("Agent attempted to accelerate greater than allowed.");
         }
+        this.penaltyValue++;
+        State nextState = physX.calculateNextState(accelerationX,accelerationY);
+
+        Result result = physX.findResult(nextState);
+        if(result == Result.Crash) {
+            //Time to handle the collision:
+            //TODO: PLACE THE CAR ON THE TRACK AGAIN.
+            return Result.Crash;
+        }
+        if(result == Result.Finished) {
+            penaltyValue--;
+            return Result.Finished;
+        }
+
+        this.applyState(nextState);
+        return Result.Success;
+    }
+
+    public void applyState(State state) {
+        positionX = state.positionX;
+        positionY = state.positionY;
+
+        velocityX = state.positionX;
+        velocityY = state.positionY;
     }
 
     /*
@@ -97,5 +129,9 @@ public class Track {
         } else {
             return new Tuple(startX, startY);
         }
+    }
+
+    public Tuple getCurrentLocation() {
+        return new Tuple(positionX, positionY);
     }
 }

@@ -73,7 +73,7 @@ public class LineSegment {
              }
         } else {
             //Start incrementing by step size
-            for(double x = point2.x; x <= point1.x; x += stepSize) {
+            for(double x = point1.x; x >= point2.x; x -= stepSize) {
                 points.add(new DoubleTuple(x, getYValueForXValue(x)));
             }
         }
@@ -96,7 +96,7 @@ public class LineSegment {
             }
         } else {
             //Start incrementing by step size
-            for(double y = point2.y; y <= point1.y; y += stepSize) {
+            for(double y = point1.y; y >= point2.y; y -= stepSize) {
                 points.add(new DoubleTuple(getXValueForYValue(y), y));
             }
         }
@@ -139,9 +139,49 @@ public class LineSegment {
     }
 
     public Tuple[] getIntersectingCellsY(int numPoints) throws Exception {
+
+        if(verticalLine) {
+            ArrayList<Tuple> list = new ArrayList<Tuple>();
+            if(point1.y > point2.y) {
+                for(int i = point2.y; i >= point1.y; i--) {
+                    list.add(new Tuple(point1.x, i));
+                }
+                Tuple[] arr = new Tuple[list.size()];
+                list.toArray(arr);
+                return arr;
+            } else {
+                for(int i = point1.y; i <= point2.y; i++) {
+                    list.add(new Tuple(point1.x, i));
+                }
+                Tuple[] arr = new Tuple[list.size()];
+                list.toArray(arr);
+                return arr;
+            }
+        }
+
         return discretizePoints(getPointsUsingYAxis(numPoints));
     }
     public Tuple[] getIntersectingCellsX(int numPoints) throws Exception {
+
+        if(horizontalLine) {
+            ArrayList<Tuple> list = new ArrayList<Tuple>();
+            if(point1.x > point2.x) {
+                for(int i = point1.x; i >= point2.x; i--) {
+                    list.add(new Tuple(i, point1.y));
+                }
+                Tuple[] arr = new Tuple[list.size()];
+                list.toArray(arr);
+                return arr;
+            } else {
+                for(int i = point1.x; i <= point2.x; i++) {
+                    list.add(new Tuple(i, point1.y));
+                }
+                Tuple[] arr = new Tuple[list.size()];
+                list.toArray(arr);
+                return arr;
+            }
+        }
+
         return discretizePoints(getPointsUsingXAxis(numPoints));
     }
 }

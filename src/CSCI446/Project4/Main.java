@@ -1,8 +1,6 @@
 package CSCI446.Project4;
 
-import CSCI446.Project4.Track.CellType;
-import CSCI446.Project4.Track.LineSegment;
-import CSCI446.Project4.Track.TrackParser;
+import CSCI446.Project4.Track.*;
 
 import java.io.IOException;
 
@@ -12,9 +10,9 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws Exception, IOException {
-        CellType[][] track = TrackParser.parseTrack("L-Track");
+        Track track = new Track("L-Track", true);
         System.out.println("Track loaded.");
-        TrackParser.printMap(track);
+        TrackParser.printMap(track.map);
 
         //Testing Line Segments
         Tuple p1 = new Tuple(1,1);
@@ -26,6 +24,13 @@ public class Main {
         for(Tuple point : points) {
             System.out.println(point);
         }
+        System.out.println("\nTesting track traversal:");
+        System.out.println("Start Location:" + track.getCurrentLocation());
+        while(track.makeMove((int) (Math.random()*2 - 1),(int) (Math.random()*2 - 1)) == Result.Success) {
+            System.out.println(track.getCurrentLocation());
+        }
+        System.out.println("Crash or Finish.");
+
     }
 
 }
