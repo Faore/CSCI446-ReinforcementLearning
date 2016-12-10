@@ -46,16 +46,13 @@ public class PhysX {
         return new State(nextPositionX, nextPositionY, nextVelocityX, nextVelocityY);
     }
 
-    Result findResult(State state) throws Exception {
+    protected Result findResult(State state) throws Exception {
 
         Tuple[] checkCells = getIntersectingCells(state);
 
         for(Tuple cell : checkCells) {
-            if(isOutOfBounds(cell)) {
-                return Result.Crash;
-            }
-            //Remember, that lovely map is accessed backwards.
-            if(this.track.map[cell.y][cell.x] == CellType.Wall) {
+            //Remember, map accessed backwards.
+            if(isOutOfBounds(cell) || this.track.map[cell.y][cell.x] == CellType.Wall) {
                 return Result.Crash;
             }
             if(this.track.map[cell.y][cell.x] == CellType.Finish) {
@@ -64,6 +61,19 @@ public class PhysX {
         }
 
         return Result.Success;
+    }
+
+    protected Tuple findLastSafeLocation(State state) throws Exception {
+        Tuple[] checkCells = getIntersectingCells(state);
+        Tuple last = null;
+        for(Tuple cell : checkCells) {
+            if (isOutOfBounds(cell) || this.track.map[cell.y][cell.x] == CellType.Wall) {
+                return last;
+            }
+            last = cell;
+        }
+        //It should never get here, but! if it does...
+        throw new Exception("Somehow managed not to find the last safe cell. Did the agent start on an invalid cell?");
     }
 
     protected boolean isOutOfBounds(Tuple tuple) {

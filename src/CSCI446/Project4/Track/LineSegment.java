@@ -53,7 +53,7 @@ public class LineSegment {
             throw new Exception("LineSegment: Attempted to get Y value for a vertical line.");
         }
         //Make sure the X value is within the line segment
-        if(!((X > point1.y && X < point2.y) || (X < point1.y && X > point2.y))) {
+        if(!((X >= point1.x && X <= point2.x) || (X <= point1.x && X >= point2.x))) {
             throw new Exception("LineSegment: Attempted to get value outside range of line segment.");
         }
         return slope*(X - (double)point1.x) + (double)point1.y;
@@ -143,7 +143,7 @@ public class LineSegment {
         if(verticalLine) {
             ArrayList<Tuple> list = new ArrayList<Tuple>();
             if(point1.y > point2.y) {
-                for(int i = point2.y; i >= point1.y; i--) {
+                for(int i = point1.y; i >= point2.y; i--) {
                     list.add(new Tuple(point1.x, i));
                 }
                 Tuple[] arr = new Tuple[list.size()];

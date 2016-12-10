@@ -3,6 +3,7 @@ package CSCI446.Project4;
 import CSCI446.Project4.Track.*;
 
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * Created by cetho on 12/4/2016.
@@ -26,11 +27,18 @@ public class Main {
         }
         System.out.println("\nTesting track traversal:");
         System.out.println("Start Location:" + track.getCurrentLocation());
-        while(track.makeMove((int) (Math.random()*2 - 1),(int) (Math.random()*2 - 1)) == Result.Success) {
-            System.out.println(track.getCurrentLocation());
-        }
-        System.out.println("Crash or Finish.");
 
+        boolean crash = false;
+        while(!crash) {
+            Random random = new Random();
+            int x = random.nextInt(3) - 1;
+            int y = random.nextInt(3) - 1;
+            Result result = track.makeMove(x,y);
+            System.out.println("Setting acceleration to (" + x + "," + y + "):\n\tResult: " + result + ", now at " + track.getCurrentLocation() + " with velocity " + track.getCurrentVelocity());
+            if(result == Result.Crash || result == Result.Finished) {
+                crash = true;
+            }
+        }
     }
 
 }

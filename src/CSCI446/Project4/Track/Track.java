@@ -53,6 +53,8 @@ public class Track {
         this.positionY = startCell.y;
         this.velocityX = 0;
         this.velocityY = 0;
+        this.startX = startCell.x;
+        this.startY = startCell.y;
     }
 
     public Result makeMove(int accelerationX, int accelerationY) throws Exception {
@@ -67,7 +69,19 @@ public class Track {
         if(result == Result.Crash) {
             //Time to handle the collision:
             //TODO: PLACE THE CAR ON THE TRACK AGAIN.
+            if(crashRevertsToBeginning) {
+                positionX = startX;
+                positionY = startY;
+            }
+            else {
+                Tuple location = physX.findLastSafeLocation(nextState);
+                positionX = location.x;
+                positionY = location.y;
+                velocityX = 0;
+                velocityY = 0;
+            }
             return Result.Crash;
+
         }
         if(result == Result.Finished) {
             penaltyValue--;
@@ -82,8 +96,8 @@ public class Track {
         positionX = state.positionX;
         positionY = state.positionY;
 
-        velocityX = state.positionX;
-        velocityY = state.positionY;
+        velocityX = state.velocityX;
+        velocityY = state.velocityY;
     }
 
     /*
@@ -133,5 +147,8 @@ public class Track {
 
     public Tuple getCurrentLocation() {
         return new Tuple(positionX, positionY);
+    }
+    public Tuple getCurrentVelocity() {
+        return new Tuple(velocityX, velocityY);
     }
 }
