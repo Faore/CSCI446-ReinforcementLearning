@@ -5,9 +5,6 @@ import CSCI446.Project4.Tuple;
 
 import java.util.ArrayList;
 
-/**
- * Created by cetho on 12/5/2016.
- */
 public class LineSegment {
 
     public final Tuple point1;

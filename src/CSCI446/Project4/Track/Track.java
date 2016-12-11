@@ -4,9 +4,6 @@ import CSCI446.Project4.Tuple;
 
 import java.util.ArrayList;
 
-/**
- * Created by cetho on 12/4/2016.
- */
 public class Track {
 
     // If true, does what it says. If false, will drop character at last spot before crash.

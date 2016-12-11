@@ -4,9 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-/**
- * Created by cetho on 12/4/2016.
- */
 public class TrackParser {
 
     public static CellType[][] parseTrack(String trackName) throws IOException, Exception {

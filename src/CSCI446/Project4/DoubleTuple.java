@@ -1,8 +1,5 @@
 package CSCI446.Project4;
 
-/**
- * Created by cetho on 12/8/2016.
- */
 public class DoubleTuple {
     public final double x;
     public final double y;

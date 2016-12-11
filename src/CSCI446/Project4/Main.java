@@ -5,9 +5,6 @@ import CSCI446.Project4.Track.*;
 import java.io.IOException;
 import java.util.Random;
 
-/**
- * Created by cetho on 12/4/2016.
- */
 public class Main {
 
     public static void main(String[] args) throws Exception, IOException {
