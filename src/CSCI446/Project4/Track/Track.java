@@ -97,6 +97,9 @@ public class Track {
         velocityY = state.velocityY;
     }
 
+    public CellType getCellType(Tuple loc){
+        return map[loc.y][loc.x];
+    }
     /*
      * Sets the cars next start position to an X and Y coordinate.
      */
@@ -148,4 +151,5 @@ public class Track {
     public Tuple getCurrentVelocity() {
         return new Tuple(velocityX, velocityY);
     }
+    public State getCurrentState() { return new State(positionX, positionY, velocityX, velocityY); }
 }
