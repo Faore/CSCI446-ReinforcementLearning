@@ -59,24 +59,28 @@ public class StateGradientAgent {
         int highestIndex = -1;
         ArrayList<State> states = new ArrayList<State>();
         //Enumerate all possible changes (Minus staying the same)
-        states.add(car.physx.calculateNextState(new Tuple(0,0), currentState));
+        states.add(car.physx.calculateNextIdealState(new Tuple(0,0), currentState));
 
-        states.add(car.physx.calculateNextState(new Tuple(-1,-1), currentState));
-        states.add(car.physx.calculateNextState(new Tuple(-1,0), currentState));
-        states.add(car.physx.calculateNextState(new Tuple(-1,1), currentState));
+        states.add(car.physx.calculateNextIdealState(new Tuple(-1,-1), currentState));
+        states.add(car.physx.calculateNextIdealState(new Tuple(-1,0), currentState));
+        states.add(car.physx.calculateNextIdealState(new Tuple(-1,1), currentState));
 
-        states.add(car.physx.calculateNextState(new Tuple(0,-1), currentState));
-        states.add(car.physx.calculateNextState(new Tuple(0,1), currentState));
+        states.add(car.physx.calculateNextIdealState(new Tuple(0,-1), currentState));
+        states.add(car.physx.calculateNextIdealState(new Tuple(0,1), currentState));
 
-        states.add(car.physx.calculateNextState(new Tuple(1,-1), currentState));
-        states.add(car.physx.calculateNextState(new Tuple(1,0), currentState));
-        states.add(car.physx.calculateNextState(new Tuple(1,1), currentState));
+        states.add(car.physx.calculateNextIdealState(new Tuple(1,-1), currentState));
+        states.add(car.physx.calculateNextIdealState(new Tuple(1,0), currentState));
+        states.add(car.physx.calculateNextIdealState(new Tuple(1,1), currentState));
 
         for(int i = 0; i < states.size(); i++) {
             State state = states.get(i);
-            if(this.utilityTable[state.positionY][state.positionX][state.velocityY][state.velocityX] >= highest) {
-                highest = this.utilityTable[state.positionY][state.positionX][state.velocityY][state.velocityX];
-                highestIndex = i;
+            //Position Checks
+            if(state.positionY >= 0 && state.positionY < utilityTable.length && state.positionX >= 0 && state.positionX < utilityTable[0].length && state.velocityY + 5 >= 0 && state.velocityY + 5 < utilityTable[0][0].length && state.velocityX + 5 >= 0 && state.velocityX + 5 < utilityTable[0][0][0].length) {
+                Double utilityValue = this.utilityTable[state.positionY][state.positionX][state.velocityY + 5][state.velocityX + 5];
+                if(utilityValue >= highest) {
+                    highest = utilityValue;
+                    highestIndex = i;
+                }
             }
         }
         return states.get(highestIndex);
