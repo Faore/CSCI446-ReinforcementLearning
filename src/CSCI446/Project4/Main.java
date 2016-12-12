@@ -26,10 +26,10 @@ public class Main {
             System.out.println(point);
         }
         System.out.println("\nTesting track traversal:");
-        //System.out.println("Start Location:" + track.getCurrentLocation());
+        System.out.println("Start Location:" + track.getCurrentLocation());
 
         boolean crash = false;
-        /*
+
         while(!crash) {
             Random random = new Random();
             int x = random.nextInt(3) - 1;
@@ -41,57 +41,6 @@ public class Main {
                 crash = true;
             }
         }
-        */
-
-        int x,y;
-        Result result;
-
-        track.setNextStartPosition(1,6);
-        track.reset();
-
-        System.out.println("Start Location:" + track.getCurrentLocation());
-
-        x = 1;
-        y = 0;
-        System.out.println("Setting acceleration to (" + x + "," + y + "):");
-        result = track.makeMove(x,y);
-        System.out.println("\tResult: " + result + ", now at " + track.getCurrentLocation() + " with velocity " + track.getCurrentVelocity());
-
-        x = 1;
-        y = 0;
-        System.out.println("Setting acceleration to (" + x + "," + y + "):");
-        result = track.makeMove(x,y);
-        System.out.println("\tResult: " + result + ", now at " + track.getCurrentLocation() + " with velocity " + track.getCurrentVelocity());
-
-        x = -1;
-        y = 1;
-        System.out.println("Setting acceleration to (" + x + "," + y + "):");
-        result = track.makeMove(x,y);
-        System.out.println("\tResult: " + result + ", now at " + track.getCurrentLocation() + " with velocity " + track.getCurrentVelocity());
-
-        x = -1;
-        y = -1;
-        System.out.println("Setting acceleration to (" + x + "," + y + "):");
-        result = track.makeMove(x,y);
-        System.out.println("\tResult: " + result + ", now at " + track.getCurrentLocation() + " with velocity " + track.getCurrentVelocity());
-
-        x = 0;
-        y = -1;
-        System.out.println("Setting acceleration to (" + x + "," + y + "):");
-        result = track.makeMove(x,y);
-        System.out.println("\tResult: " + result + ", now at " + track.getCurrentLocation() + " with velocity " + track.getCurrentVelocity());
-
-        x = 1;
-        y = 0;
-        System.out.println("Setting acceleration to (" + x + "," + y + "):");
-        result = track.makeMove(x,y);
-        System.out.println("\tResult: " + result + ", now at " + track.getCurrentLocation() + " with velocity " + track.getCurrentVelocity());
-
-        x = 1;
-        y = -1;
-        System.out.println("Setting acceleration to (" + x + "," + y + "):");
-        result = track.makeMove(x,y);
-        System.out.println("\tResult: " + result + ", now at " + track.getCurrentLocation() + " with velocity " + track.getCurrentVelocity());
     }
 
 }
