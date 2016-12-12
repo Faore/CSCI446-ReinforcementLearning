@@ -92,17 +92,11 @@ public class PhysX {
      * The cell that these values appear in will become the intersecting cells.
      */
     protected Tuple[] getIntersectingCells(State state) throws Exception {
-        int numberOfSplits;
+
         boolean useXAxis;
         //Find out if the magnitude of X or Y's velocity is higher.
-        if(Math.abs(state.velocityX) > Math.abs(state.velocityY)) {
-            //X has the greater magnitude
-            numberOfSplits = Math.abs(state.velocityX * 2);
-            useXAxis = true;
-        } else {
-            numberOfSplits = Math.abs(state.velocityY * 2);
-            useXAxis =false;
-        }
+        //X has the greater magnitude
+        useXAxis = Math.abs(state.velocityX) > Math.abs(state.velocityY);
 
         //Line can be represented nicely in point-slope form.
         //There's a cool helper class aptly called LineSegment to help with some math.
@@ -113,9 +107,9 @@ public class PhysX {
         }
 
         if(useXAxis) {
-            return line.getIntersectingCellsX(numberOfSplits);
+            return line.getIntersectingCellsX();
         } else {
-            return line.getIntersectingCellsY(numberOfSplits);
+            return line.getIntersectingCellsY();
         }
     }
 }

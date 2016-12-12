@@ -59,11 +59,11 @@ public class LineSegment {
         return slope*(X - (double)point1.x) + (double)point1.y;
     }
 
-    public DoubleTuple[] getPointsUsingXAxis(int numPoints) throws Exception {
+    public DoubleTuple[] getPointsUsingXAxis() throws Exception {
         if(horizontalLine || verticalLine) {
             throw new Exception("Cannot build point list for horizontal or vertical line.");
         }
-        double stepSize = Math.abs(point1.x - point2.x)/numPoints;
+        double stepSize = 0.5d;
         ArrayList<DoubleTuple> points = new ArrayList<DoubleTuple>();
 
         if (point1.x < point2.x) {
@@ -82,11 +82,11 @@ public class LineSegment {
         return arr;
     }
 
-    public DoubleTuple[] getPointsUsingYAxis(int numPoints) throws Exception {
+    public DoubleTuple[] getPointsUsingYAxis() throws Exception {
         if(horizontalLine || verticalLine) {
             throw new Exception("Cannot build point list for horizontal or vertical line.");
         }
-        double stepSize = Math.abs((double)point1.y - (double)point2.y)/numPoints;
+        double stepSize = 0.5d;
         ArrayList<DoubleTuple> points = new ArrayList<DoubleTuple>();
 
         if (point1.y < point2.y) {
@@ -138,7 +138,7 @@ public class LineSegment {
         return ret;
     }
 
-    public Tuple[] getIntersectingCellsY(int numPoints) throws Exception {
+    public Tuple[] getIntersectingCellsY() throws Exception {
 
         if(verticalLine) {
             ArrayList<Tuple> list = new ArrayList<Tuple>();
@@ -159,9 +159,9 @@ public class LineSegment {
             }
         }
 
-        return discretizePoints(getPointsUsingYAxis(numPoints));
+        return discretizePoints(getPointsUsingYAxis());
     }
-    public Tuple[] getIntersectingCellsX(int numPoints) throws Exception {
+    public Tuple[] getIntersectingCellsX() throws Exception {
 
         if(horizontalLine) {
             ArrayList<Tuple> list = new ArrayList<Tuple>();
@@ -182,6 +182,6 @@ public class LineSegment {
             }
         }
 
-        return discretizePoints(getPointsUsingXAxis(numPoints));
+        return discretizePoints(getPointsUsingXAxis());
     }
 }
