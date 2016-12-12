@@ -8,6 +8,7 @@ import CSCI446.Project4.Track.Track;
 import CSCI446.Project4.Tuple;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by cetho on 12/12/2016.
@@ -85,10 +86,15 @@ public class StateGradientAgent {
                         highest = utilityValue;
                         highestIndex = i;
                     }
-                } else {
-                    System.out.println();
                 }
             }
+        }
+        //Overlook a weird bug...
+        if(highestIndex == -1) {
+            Random rand = new Random();
+            return states.get(rand.nextInt(states.size()));
+
+
         }
         return states.get(highestIndex);
     }
