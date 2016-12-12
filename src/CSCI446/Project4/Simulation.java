@@ -69,14 +69,14 @@ class Simulation {
                 System.out.println(e.getMessage());
             }
 
-            if(stepResult == Result.Crash){
-                track.reset();
-            }
-
             count++;
             System.out.print("\033[H\033[2J");
             System.out.println("\nIteration: " + count + " Result: " + stepResult.toString());
             track.printTrack();
+
+            if(stepResult == Result.Crash){
+                track.reset();
+            }
             if(iterations > 0)
                 maxLoops--;
         }
