@@ -37,6 +37,7 @@ public class ValueIteration {
             for(int j = 0; j < utilityArray[i].length; j ++){
                 for(int l = -5; l < 5; l++){                        
                     for(int m = -5; m < 5; m ++){
+                        utilityArray[i][j][l+ 5][m+ 5] = 0d;
                 if(track.map[i][j].toString().matches("Finish")){
                     utilityArray[i][j][l+ 5][m+ 5] = 100.0;
                     rewardArray[i][j] = 100.0;
