@@ -61,6 +61,9 @@ Starting SARSA simulator for track: O-track with start from beginning: false
     Simulation number: 10
     Iteration: 127 Result: Finished
 
+Starting Value Iteration simulator for track: O-track with start from beginning:
+	Simulation number: 1
+	Preperation Iterations: 39 Result: Success Steps: 31 Crashes: 4
 
 Starting SARSA simulator for track: R-track with start from beginning: false
     Simulation number: 1
