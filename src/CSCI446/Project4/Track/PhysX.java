@@ -43,6 +43,30 @@ public class PhysX {
         return new State(nextPositionX, nextPositionY, nextVelocityX, nextVelocityY);
     }
 
+    public State calculateNextIdealState(Tuple newAcc, State curState) {
+        int nextVelocityX;
+        int nextVelocityY;
+        //Insert some non-determinism.
+        nextVelocityX = curState.velocityX + newAcc.getX();
+        nextVelocityY = curState.velocityY + newAcc.getY();
+
+        // Can't let the car go past the speed limit.
+        if(nextVelocityX > 5) {
+            nextVelocityX = 5;
+        } else if(nextVelocityX < -5) {
+            nextVelocityX = -5;
+        }
+        if(nextVelocityY > 5) {
+            nextVelocityY = 5;
+        } else if(nextVelocityY < -5) {
+            nextVelocityY = -5;
+        }
+
+        int nextPositionX = curState.positionX + nextVelocityX;
+        int nextPositionY = curState.positionY + nextVelocityY;
+        return new State(nextPositionX, nextPositionY, nextVelocityX, nextVelocityY);
+    }
+
     public Result findResult(State oldState, State newState) throws Exception {
 
         Tuple[] checkCells = getIntersectingCells(oldState, newState);
@@ -60,18 +84,18 @@ public class PhysX {
         return Result.Success;
     }
 
-//    protected Tuple findLastSafeLocation(State state) throws Exception {
-//        Tuple[] checkCells = getIntersectingCells(state);
-//        Tuple last = null;
-//        for(Tuple cell : checkCells) {
-//            if (isOutOfBounds(cell) || this.track.map[cell.getY()][cell.getX()] == CellType.Wall) {
-//                return last;
-//            }
-//            last = cell;
-//        }
-//        //It should never get here, but! if it does...
-//        throw new Exception("Somehow managed not to find the last safe cell. Did the agent start on an invalid cell?");
-//    }
+    public Tuple findLastSafeLocation(State oldState, State newState) throws Exception {
+        Tuple[] checkCells = getIntersectingCells(oldState, newState);
+        Tuple last = null;
+        for(Tuple cell : checkCells) {
+            if (isOutOfBounds(cell) || this.track.map[cell.getY()][cell.getX()] == CellType.Wall) {
+                return last;
+            }
+            last = cell;
+        }
+        //It should never get here, but! if it does...
+        throw new Exception("Somehow managed not to find the last safe cell. Did the agent start on an invalid cell?");
+    }
 
     private boolean isOutOfBounds(Tuple tuple) {
         return tuple.getY() >= track.map.length

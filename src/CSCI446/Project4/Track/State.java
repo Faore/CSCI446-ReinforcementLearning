@@ -6,13 +6,13 @@ import java.util.Objects;
 
 public class State {
 
-    final int velocityX;
-    final int velocityY;
+    public final int velocityX;
+    public final int velocityY;
 
-    final int positionX;
-    final int positionY;
+    public final int positionX;
+    public final int positionY;
 
-    State(int positionX, int positionY, int velocityX, int velocityY) {
+    public State(int positionX, int positionY, int velocityX, int velocityY) {
         this.velocityX = velocityX;
         this.velocityY = velocityY;
         this.positionX = positionX;

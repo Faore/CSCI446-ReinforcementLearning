@@ -8,7 +8,7 @@ import CSCI446.Project4.Track.State;
 public class Car {
     private Tuple position;
     private Tuple velocity;
-    private PhysX physx;
+    public PhysX physx;
 
     private State lastState;
     private State curState;
@@ -23,7 +23,7 @@ public class Car {
         this.physx = physX;
     }
 
-    Result applyAction(Action newAction) throws Exception {
+    public Result applyAction(Action newAction) throws Exception {
         Tuple newAcc = newAction.getTuple();
         if(newAcc.getX() > 1)
             newAcc.setX(1);
@@ -42,6 +42,7 @@ public class Car {
         updateState(newState);
         return result;
     }
+
     private void updateState(State newState){
         position = newState.getLocation();
         velocity = newState.getVelocity();
@@ -55,16 +56,30 @@ public class Car {
         curState = newState;
     }
 
-    Tuple getCurrentLocation() { return position;}
-    Tuple getCurrentVelocity() { return velocity; }
-    State getCurrentState() { return curState; }
 
-    Action getLastAction() {
+
+    public Tuple getCurrentLocation() { return position;}
+    public Tuple getCurrentVelocity() { return velocity; }
+    public State getCurrentState() { return curState; }
+
+    public Action getLastAction() {
         return lastAction;
     }
 
-    State getLastState() {
+    public State getLastState() {
         return lastState;
+    }
+
+    //The problem description says we need to put it at the closest spot on the track.
+    public State getLastSafeState() throws Exception {
+        Tuple location =  physx.findLastSafeLocation(lastState, this.curState);
+        return new State(location.x, location.y, 0,0);
+    }
+
+    public void goToSafeState() throws Exception {
+        curState = this.getLastSafeState();
+        position = curState.getLocation();
+        velocity = curState.getVelocity();
     }
 
     public void goToLastState() {
