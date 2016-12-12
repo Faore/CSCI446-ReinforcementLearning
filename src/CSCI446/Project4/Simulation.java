@@ -4,21 +4,18 @@ import CSCI446.Project4.Algorithms.Action;
 import CSCI446.Project4.Algorithms.SARSA;
 import CSCI446.Project4.Track.*;
 
-import java.io.IOException;
-
 class Simulation {
     private SARSA ai;
     private Track track;
+    private Car car;
     private int crashR;
     private int normalR;
     private int finishR;
 
-    private State lastState;
-    private Action lastAction;
-
     Simulation(SARSA ai, Track track){
         this.ai = ai;
         this.track = track;
+        car = this.track.getCar();
 
         crashR = -100;
         normalR = -1;
@@ -28,26 +25,25 @@ class Simulation {
     private Result stepSimulation() throws Exception{
         int reward = getReward();
         State state = getState();
+        ai.update(state);
         Action action = ai.decision(state);
-        Tuple actionT = action.getTuple();
-        if(lastAction != null)
-            ai.learn(lastState, lastAction, reward, state, action);
-        this.lastState = state;
-        this.lastAction = action;
-
-        return track.makeMove(actionT.getX(), actionT.getY());
+        if(car.getLastAction() != null)
+            ai.learn(car.getLastState(), car.getLastAction(), reward, state, action);
+        return car.applyAction(action);
+//        return track.makeMove(actionT.getX(), actionT.getY());
     }
 
     private State getState() {
-        return track.getCurrentState();
+        return car.getCurrentState();
     }
 
     private int getReward() {
-        CellType cellType = track.getCellType(track.getCurrentLocation());
+        CellType cellType = track.getCellType(car.getCurrentLocation());
         switch(cellType){
             case Finish:
                 return finishR;
             case Wall:
+                track.reset();
                 return crashR;
             case Track:
             default:
@@ -55,30 +51,18 @@ class Simulation {
         }
     }
 
-    void startSimulation(int iterations) throws IOException {
-        int maxLoops = 1;
+    void startSimulation() throws Exception {
         int count = 0;
-        if(iterations > 0)
-            maxLoops = iterations;
         Result stepResult = Result.Success;
         while(stepResult != Result.Finished){
             // Simulate stuff
-            try {
-                stepResult = stepSimulation();
-            }catch(Exception e){
-                System.out.println(e.getMessage());
-            }
+            stepResult = stepSimulation();
 
             count++;
-            System.out.print("\033[H\033[2J");
-            System.out.println("\nIteration: " + count + " Result: " + stepResult.toString());
-            track.printTrack();
-
-            if(stepResult == Result.Crash){
-                track.reset();
-            }
-            if(iterations > 0)
-                maxLoops--;
+//            System.out.println("\nIteration: " + count + " Result: " + stepResult.toString());
+//            track.printTrack();
         }
+        System.out.println(String.format("\tIteration: %d Result: %s", count, stepResult));
+        System.out.println();
     }
 }

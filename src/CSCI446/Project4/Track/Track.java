@@ -1,5 +1,6 @@
 package CSCI446.Project4.Track;
 
+import CSCI446.Project4.Car;
 import CSCI446.Project4.Tuple;
 
 import java.util.ArrayList;
@@ -7,33 +8,23 @@ import java.util.ArrayList;
 public class Track {
 
     // If true, does what it says. If false, will drop character at last spot before crash.
-    protected boolean crashRevertsToBeginning;
-
-    //PhysX - So we don't completely fill up this class
-    protected PhysX physX;
+    private boolean crashRevertsToBeginning;
 
     //Stores the actual grid and start cells.
-    public final CellType[][] map; //NOTE: MAP IS INDEXED VERTICALLY THEN HORIZONTALLY. (X,Y coordinate is at Y,X)
-    protected ArrayList<Tuple> startCells;
+    final CellType[][] map; //NOTE: MAP IS INDEXED VERTICALLY THEN HORIZONTALLY. (X,Y coordinate is at Y,X)
+    private ArrayList<Tuple> startCells;
 
     //Start position management. If the boolean is true, the car will be randomly placed on the starting line.
-    protected boolean useDefaultRandomStart;
-    protected int startX;
-    protected int startY;
+    private boolean useDefaultRandomStart;
+    private int startX;
+    private int startY;
 
-    //The constantly changing values during simulation
-    protected int penaltyValue;
-    protected int positionX;
-    protected int positionY;
-    protected int velocityX;
-    protected int velocityY;
+    private Car car;
 
     public Track(String trackName, boolean crashRevertsToBeginning) throws Exception {
         this.map = TrackParser.parseTrack(trackName);
         this.crashRevertsToBeginning = crashRevertsToBeginning;
-        this.useDefaultRandomStart = true;
-
-        this.physX = new PhysX(this);
+        this.useDefaultRandomStart = false;
 
         this.startCells = new ArrayList<Tuple>();
 
@@ -46,59 +37,16 @@ public class Track {
         }
         //Randomly place the car on the start line.
         Tuple startCell = this.startCells.get((int) (Math.random() * this.startCells.size()));
-        this.positionX = startCell.x;
-        this.positionY = startCell.y;
-        this.velocityX = 0;
-        this.velocityY = 0;
-        this.startX = startCell.x;
-        this.startY = startCell.y;
-    }
-
-    public Result makeMove(int accelerationX, int accelerationY) throws Exception {
-        //Can't let them accelerate too fast.
-        if(accelerationX > 1 || accelerationX < -1 || accelerationY > 1 || accelerationX < -1) {
-            throw new Exception("Agent attempted to accelerate greater than allowed.");
-        }
-        this.penaltyValue++;
-        State nextState = physX.calculateNextState(accelerationX,accelerationY);
-
-        Result result = physX.findResult(nextState);
-//        if(result == Result.Crash) {
-//            //Time to handle the collision:
-//            //TODO: PLACE THE CAR ON THE TRACK AGAIN.
-//            if(crashRevertsToBeginning) {
-//                positionX = startX;
-//                positionY = startY;
-//            }
-//            else {
-//                Tuple location = physX.findLastSafeLocation(nextState);
-//                positionX = location.x;
-//                positionY = location.y;
-//                velocityX = 0;
-//                velocityY = 0;
-//            }
-//            return Result.Crash;
-//
-//        }
-//        if(result == Result.Finished) {
-//            penaltyValue--;
-//            return Result.Finished;
-//        }
-
-        this.applyState(nextState);
-        return result;
-    }
-
-    public void applyState(State state) {
-        positionX = state.positionX;
-        positionY = state.positionY;
-
-        velocityX = state.velocityX;
-        velocityY = state.velocityY;
+        car = new Car(startCell.getTuple(), new PhysX(this));
+        this.startX = startCell.getX();
+        this.startY = startCell.getY();
     }
 
     public CellType getCellType(Tuple loc){
-        return map[loc.y][loc.x];
+        if(map.length > loc.getY() && map[0].length > loc.getX() && loc.getX() > 0 && loc.getY() > 0)
+            return map[loc.getY()][loc.getX()];
+        else
+            return CellType.Wall;
     }
     /*
      * Sets the cars next start position to an X and Y coordinate.
@@ -114,16 +62,15 @@ public class Track {
     }
 
     /*
-     * Reset the penalty function, track, and dump the car on the start position;
+     * Reset the track, and dump the car on the start position;
      */
     public void reset() {
-        this.penaltyValue = 0;
-        this.velocityX = 0;
-        this.velocityY = 0;
-
-        Tuple position = getNextStartPosition();
-        this.positionX = position.x;
-        this.positionY = position.y;
+        if(crashRevertsToBeginning) {
+            Tuple position = getNextStartPosition();
+            car.resetState(new State(position, new Tuple(0, 0)));
+        }else{
+            car.goToLastState();
+        }
     }
 
     /*
@@ -145,38 +92,7 @@ public class Track {
         }
     }
 
-    public Tuple getCurrentLocation() {
-        return new Tuple(positionX, positionY);
-    }
-    public Tuple getCurrentVelocity() {
-        return new Tuple(velocityX, velocityY);
-    }
-    public State getCurrentState() { return new State(positionX, positionY, velocityX, velocityY); }
-
-    public void printTrack(){
-        for (int vert = 0; vert < map.length; vert++) {
-            for (int hor = 0; hor < map[vert].length; hor++) {
-                Tuple loc = getCurrentLocation();
-                if(loc.x == hor && loc.y == vert)
-                    System.out.print('c');
-                else {
-                    switch (map[vert][hor]) {
-                        case Wall:
-                            System.out.print('#');
-                            break;
-                        case Finish:
-                            System.out.print('F');
-                            break;
-                        case Start:
-                            System.out.print('S');
-                            break;
-                        case Track:
-                            System.out.print('.');
-                            break;
-                    }
-                }
-            }
-            System.out.println();
-        }
+    public Car getCar() {
+        return car;
     }
 }
