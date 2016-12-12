@@ -11,7 +11,7 @@ public class Track {
     private boolean crashRevertsToBeginning;
 
     //Stores the actual grid and start cells.
-    final CellType[][] map; //NOTE: MAP IS INDEXED VERTICALLY THEN HORIZONTALLY. (X,Y coordinate is at Y,X)
+    public final CellType[][] map; //NOTE: MAP IS INDEXED VERTICALLY THEN HORIZONTALLY. (X,Y coordinate is at Y,X)
     private ArrayList<Tuple> startCells;
 
     //Start position management. If the boolean is true, the car will be randomly placed on the starting line.

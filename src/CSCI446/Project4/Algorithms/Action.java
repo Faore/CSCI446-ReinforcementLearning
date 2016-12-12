@@ -6,8 +6,8 @@ import CSCI446.Project4.Tuple;
 import java.util.Objects;
 
 public class Action{
-    private int x;
-    private int y;
+    public final int x;
+    public final int y;
     Action(int x, int y){
         this.x = x;
         this.y = y;

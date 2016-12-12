@@ -80,8 +80,8 @@ public class ValueIteration {
                         double reward = rewardArray[i][j];
                         // the utility of its neighbors
                         for (int k = 0; k < actions.size(); k++) {
-                            int x = i + actions.get(k).getX();
-                            int y = j + actions.get(k).getY();
+                            int x = i + actions.get(k).x;
+                            int y = j + actions.get(k).y;
                             if(utilityArray[i][j] != null && utilityArray[x][y] != null){
                                 candidateUtils.add(reward + discountFactor * (0.8 * (utilityArray[x][y]) + 0.2 * (utilityArray[i][j])));
                             }
