@@ -8,14 +8,14 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws Exception, IOException {
-//        //L-Track simulator
-//        startSimulator("L-track", new SARSA(.5, .5), false);
-//        //O-Track Simulator
-//        startSimulator("O-track", new SARSA(.5, .5), false);
-//        //R-Track Simulator
-//        startSimulator("R-track", new SARSA(.5, .5), false);
+        //L-Track simulator
+        startSimulator("L-track", new SARSA(.5, .5), false);
+        //O-Track Simulator
+        startSimulator("O-track", new SARSA(.5, .5), false);
+        //R-Track Simulator
+        startSimulator("R-track", new SARSA(.5, .5), false);
         //R-Track Simulator startOver
-        startSimulator("R-track", new SARSA(.5, .5), true);
+        startSimulator("R-track", new SARSA(1, 1), true);
     }
 
     private static void startSimulator(String trackName, SARSA sarsa, boolean startOver) throws Exception {

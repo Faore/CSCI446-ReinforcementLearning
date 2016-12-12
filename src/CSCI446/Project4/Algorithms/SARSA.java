@@ -64,8 +64,12 @@ public class SARSA implements Algorithm{
         List<Integer> maxQs = new ArrayList<>();
         for(int i = 0; i < actions.size(); i++){
             if(Q.get(state).containsKey(actions.get(i))){
-                if(Q.get(state).get(actions.get(i)) >= maxQ){
+                if(Q.get(state).get(actions.get(i)) > maxQ) {
+                    maxQs.clear();
                     maxQ = Q.get(state).get(actions.get(i));
+                    maxQs.add(i);
+                }else if(Q.get(state).get(actions.get(i)) == maxQ)
+                {
                     maxQs.add(i);
                 }
             }
