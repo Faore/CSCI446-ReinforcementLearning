@@ -63,30 +63,30 @@ public class Track {
         State nextState = physX.calculateNextState(accelerationX,accelerationY);
 
         Result result = physX.findResult(nextState);
-        if(result == Result.Crash) {
-            //Time to handle the collision:
-            //TODO: PLACE THE CAR ON THE TRACK AGAIN.
-            if(crashRevertsToBeginning) {
-                positionX = startX;
-                positionY = startY;
-            }
-            else {
-                Tuple location = physX.findLastSafeLocation(nextState);
-                positionX = location.x;
-                positionY = location.y;
-                velocityX = 0;
-                velocityY = 0;
-            }
-            return Result.Crash;
-
-        }
-        if(result == Result.Finished) {
-            penaltyValue--;
-            return Result.Finished;
-        }
+//        if(result == Result.Crash) {
+//            //Time to handle the collision:
+//            //TODO: PLACE THE CAR ON THE TRACK AGAIN.
+//            if(crashRevertsToBeginning) {
+//                positionX = startX;
+//                positionY = startY;
+//            }
+//            else {
+//                Tuple location = physX.findLastSafeLocation(nextState);
+//                positionX = location.x;
+//                positionY = location.y;
+//                velocityX = 0;
+//                velocityY = 0;
+//            }
+//            return Result.Crash;
+//
+//        }
+//        if(result == Result.Finished) {
+//            penaltyValue--;
+//            return Result.Finished;
+//        }
 
         this.applyState(nextState);
-        return Result.Success;
+        return result;
     }
 
     public void applyState(State state) {
@@ -152,4 +152,31 @@ public class Track {
         return new Tuple(velocityX, velocityY);
     }
     public State getCurrentState() { return new State(positionX, positionY, velocityX, velocityY); }
+
+    public void printTrack(){
+        for (int vert = 0; vert < map.length; vert++) {
+            for (int hor = 0; hor < map[vert].length; hor++) {
+                Tuple loc = getCurrentLocation();
+                if(loc.x == hor && loc.y == vert)
+                    System.out.print('c');
+                else {
+                    switch (map[vert][hor]) {
+                        case Wall:
+                            System.out.print('#');
+                            break;
+                        case Finish:
+                            System.out.print('F');
+                            break;
+                        case Start:
+                            System.out.print('S');
+                            break;
+                        case Track:
+                            System.out.print('.');
+                            break;
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
 }

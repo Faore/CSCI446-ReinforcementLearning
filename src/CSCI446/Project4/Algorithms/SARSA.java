@@ -21,7 +21,7 @@ public class SARSA implements Algorithm{
     public SARSA(double a, double g){
         this.a = a;
         this.g = g;
-        this.e = .2;
+        this.e = 0;
         this.Q = new HashMap<>();
 
         actions = generateActions(-1, 1);
@@ -58,8 +58,13 @@ public class SARSA implements Algorithm{
         if(Math.random() < this.e)
             return randomAction(); //TODO: Implement random action
 
-        if(!Q.containsKey(state))
-            return randomAction(); //TODO: Implement random action
+        if(!Q.containsKey(state)) {
+            Map<Action, Double> tmp = new HashMap<>();
+            for(int i = 0; i < actions.size(); i++){
+                tmp.put(actions.get(i), 0.0);
+            }
+            Q.put(state, tmp);
+        }
         // Find max Qs
         // If more than 1, return random from Q
         // Loop through actions

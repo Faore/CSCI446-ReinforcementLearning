@@ -2,10 +2,9 @@ package CSCI446.Project4;
 
 import CSCI446.Project4.Algorithms.Action;
 import CSCI446.Project4.Algorithms.SARSA;
-import CSCI446.Project4.Track.CellType;
-import CSCI446.Project4.Track.Result;
-import CSCI446.Project4.Track.State;
-import CSCI446.Project4.Track.Track;
+import CSCI446.Project4.Track.*;
+
+import java.io.IOException;
 
 class Simulation {
     private SARSA ai;
@@ -26,17 +25,17 @@ class Simulation {
         finishR = 100;
     }
 
-    Result stepSimulation() throws Exception{
+    private Result stepSimulation() throws Exception{
         int reward = getReward();
         State state = getState();
         Action action = ai.decision(state);
         Tuple actionT = action.getTuple();
         if(lastAction != null)
             ai.learn(lastState, lastAction, reward, state, action);
-        Result result = track.makeMove(actionT.getX(), actionT.getY());
         this.lastState = state;
         this.lastAction = action;
-        return result;
+
+        return track.makeMove(actionT.getX(), actionT.getY());
     }
 
     private State getState() {
@@ -56,7 +55,7 @@ class Simulation {
         }
     }
 
-    void startSimulation(int iterations){
+    void startSimulation(int iterations) throws IOException {
         int maxLoops = 1;
         int count = 0;
         if(iterations > 0)
@@ -70,8 +69,14 @@ class Simulation {
                 System.out.println(e.getMessage());
             }
 
+            if(stepResult == Result.Crash){
+                track.reset();
+            }
+
             count++;
-            System.out.println("Iteration: " + count + "Result: " + stepResult.toString());
+            System.out.print("\033[H\033[2J");
+            System.out.println("\nIteration: " + count + " Result: " + stepResult.toString());
+            track.printTrack();
             if(iterations > 0)
                 maxLoops--;
         }
