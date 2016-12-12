@@ -13,4 +13,12 @@ public class Action{
     public Tuple getTuple(){
         return new Tuple(this.x, this.y);
     }
+    
+    public int getX(){
+        return x;
+    }
+    
+    public int getY(){
+        return y;
+    }
 }
