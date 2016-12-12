@@ -129,7 +129,8 @@ public class ValueIteration {
     public void printArray(Double temp[][][][]){
         for(int i = 0; i < temp.length; i ++){
             for(int j = 0; j < temp[i].length; j ++){
-                System.out.print(temp[i][j][0][0] + " "); 
+                
+                System.out.print(temp[i][j][5][5] + " "); 
             }
             System.out.println();
         }
