@@ -16,7 +16,7 @@ public class ValueIteration {
     private double change = 1.0;//A non-zero start amount of change
     private Double utilityArray[][][][];//has the utility values for each space on the track
     private Double rewardArray[][];//has the reward values for each space on the track
-    private int count = 0;//counts number of iterations
+    public int count = 0;//counts number of iterations
     private boolean conv = false;//boolean to check for convergence
     
     public ValueIteration(Track track) throws Exception, IOException{
@@ -108,21 +108,21 @@ public class ValueIteration {
                     }
                 
                     //debugging prints
-                    System.out.println("");
-                    System.out.println("ITERATION #: " + count);
-                    System.out.println("LARGEST CHANGE: " + change);
-                    for(int i = 0; i < track.map.length; i ++){
-                        for(int j = 0; j < track.map[i].length; j ++){
-                            for(int l = -5; l < 5; l++){                        //all x velocities
-                                for(int m = -5; m < 5; m ++){
-                            if(utilityArray[i][j] != null){
-                            System.out.println("(" + i + ", " + j + ") " + utilityArray[i][j][l+5][m+5]);
-                            }}}
-                        }
-                    }
+                    //System.out.println("");
+                    //System.out.println("ITERATION #: " + count);
+                    //System.out.println("LARGEST CHANGE: " + change);
+                    //for(int i = 0; i < track.map.length; i ++){
+                        //for(int j = 0; j < track.map[i].length; j ++){
+                            //for(int l = -5; l < 5; l++){                        //all x velocities
+                                //for(int m = -5; m < 5; m ++){
+                            //if(utilityArray[i][j] != null){
+                            //System.out.println("(" + i + ", " + j + ") " + utilityArray[i][j][l+5][m+5]);
+                            //}}}
+                        //}
+                    //}
                 count = count + 1;
                 }
-            printArray(utilityArray);
+            //printArray(utilityArray);
     }
     
     //print utility array
@@ -134,6 +134,10 @@ public class ValueIteration {
             }
             System.out.println();
         }
+    }
+
+    public Double[][][][] getUtilityArray() {
+        return utilityArray;
     }
     
     //check for convergence

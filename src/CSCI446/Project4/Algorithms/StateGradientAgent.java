@@ -15,11 +15,13 @@ import java.util.ArrayList;
 public class StateGradientAgent {
 
     //x,y,xv,yx
-    private double[][][][] utilityTable;
+    private Double[][][][] utilityTable;
     private Track track;
     private Car car;
+    public int iterations;
+    public int crashes;
 
-    public StateGradientAgent(double[][][][] utilityTable, Track track) {
+    public StateGradientAgent(Double[][][][] utilityTable, Track track) {
         this.utilityTable = utilityTable;
         this.track = track;
         this.car = track.getCar();
@@ -33,13 +35,15 @@ public class StateGradientAgent {
         State currentState;
         Tuple newAcceleration;
         Result result = Result.Success; //Just to so Java doesn't scream that the variable might not be initialized.
-        int iterations = 0;
+        iterations = 0;
+        crashes = 0;
         while(!done) {
             //Make a move.
             currentState = car.getCurrentState();
             newAcceleration = getAcceleration(currentState, findBestStateToTransitionTo(currentState));
             result = car.applyAction(new Action(newAcceleration.x, newAcceleration.y));
             if(result == Result.Crash) {
+                crashes++;
                 car.goToSafeState();
             }
             iterations++;
@@ -51,10 +55,12 @@ public class StateGradientAgent {
     }
 
     public State findBestStateToTransitionTo(State currentState) {
-        double highest = Double.MIN_NORMAL;
+        double highest = Double.MIN_VALUE;
         int highestIndex = -1;
         ArrayList<State> states = new ArrayList<State>();
         //Enumerate all possible changes (Minus staying the same)
+        states.add(car.physx.calculateNextState(new Tuple(0,0), currentState));
+
         states.add(car.physx.calculateNextState(new Tuple(-1,-1), currentState));
         states.add(car.physx.calculateNextState(new Tuple(-1,0), currentState));
         states.add(car.physx.calculateNextState(new Tuple(-1,1), currentState));
@@ -68,8 +74,8 @@ public class StateGradientAgent {
 
         for(int i = 0; i < states.size(); i++) {
             State state = states.get(i);
-            if(this.utilityTable[state.positionX][state.positionY][state.velocityX][state.velocityY] > highest) {
-                highest = this.utilityTable[state.positionX][state.positionY][state.velocityX][state.velocityY];
+            if(this.utilityTable[state.positionY][state.positionX][state.velocityY][state.velocityX] >= highest) {
+                highest = this.utilityTable[state.positionY][state.positionX][state.velocityY][state.velocityX];
                 highestIndex = i;
             }
         }
