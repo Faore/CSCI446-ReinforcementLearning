@@ -8,7 +8,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) throws Exception, IOException {
-        Track track = new Track("L-Track", true);
+        Track track = new Track("L-track", true);
         System.out.println("Track loaded.");
         TrackParser.printMap(track.map);
 
