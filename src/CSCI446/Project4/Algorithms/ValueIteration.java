@@ -11,8 +11,8 @@ import java.io.IOException;
 public class ValueIteration {
     //cost to move: 1
     private Track track;
-    private double discountFactor = 0.9;
-    private double threshhold = 0.01;
+    private double discountFactor = 0.9;//insures later adjustments are valued less
+    private double threshhold = 0.01;//threshhold for convergence
     private double change = 1.0;//A non-zero start amount of change
     private Double utilityArray[][];//has the utility values for each space on the track
     private Double rewardArray[][];//has the reward values for each space on the track
@@ -31,7 +31,8 @@ public class ValueIteration {
         utilityArray = new Double[track.map.length][track.map[0].length];
         rewardArray = new Double[track.map.length][track.map[0].length];
         //create a list of touples that are the track spaces
-        ArrayList<Tuple> tupleList = new ArrayList<>();        
+        ArrayList<Tuple> tupleList = new ArrayList<>();
+        //initialize values
         for(int i = 0; i < utilityArray.length; i ++){
             for(int j = 0; j < utilityArray[i].length; j ++){
                 if(track.map[i][j].toString().matches("Finish")){
@@ -49,7 +50,7 @@ public class ValueIteration {
                     tupleList.add(new Tuple(i,j));
                 }
                 if(track.map[i][j].toString().matches("Wall")){
-                    utilityArray[i][j] = null;
+                    utilityArray[i][j] = -5.0;
                     rewardArray[i][j] = -5.0;
                 }
             }
@@ -78,7 +79,7 @@ public class ValueIteration {
                 conv = checkConv();
                     change = 0.0;   //set change to zero initially
                 for(int i = 0; i < tupleList.size(); i ++){                 //List of Xs and Ys on the track
-                            double reward = rewardArray[tupleList.get(i).x][tupleList.get(i).y];              //value of reward = reward at that location
+                            double reward = rewardArray[tupleList.get(i).x][tupleList.get(i).y];//value of reward = reward at that location
                             candidateUtils = new ArrayList<>();             //wipes the arraylist
                             for (int k = 0; k < actions.size(); k++) {      //all acceleration options
                                 int x = tupleList.get(i).x + actions.get(k).x;
@@ -96,7 +97,7 @@ public class ValueIteration {
                             }
                     }
                     //debugging prints
-                    
+                    System.out.println("");
                     System.out.println("ITERATION #: " + count);
                     System.out.println("LARGEST CHANGE: " + change);
                     for(int i = 0; i < track.map.length; i ++){
@@ -108,7 +109,7 @@ public class ValueIteration {
                     }
                 count = count + 1;
                 }
-            //printArray(utilityArray);
+            printArray(utilityArray);
     }
     
     //print utility array
