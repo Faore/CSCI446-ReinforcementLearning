@@ -35,7 +35,7 @@ public class ValueIteration {
         for(int i = 0; i < utilityArray.length; i ++){
             for(int j = 0; j < utilityArray[i].length; j ++){
                 if(track.map[i][j].toString().matches("Finish")){
-                    utilityArray[i][j] = 0.0;
+                    utilityArray[i][j] = 100.0;
                     rewardArray[i][j] = 100.0;
                 }
                 if(track.map[i][j].toString().matches("Track")){
@@ -72,57 +72,18 @@ public class ValueIteration {
             //arraylist of candidate utilities
             ArrayList<Double> candidateUtils;   //array list of candidate utility values
             //System.out.println(t);
-            
 
-            count = 1;
-            //while loop runs until convergence is reached
-//            while (conv == false){
-//                conv = checkConv();
-//                for(int i = 0; i < utilityArray.length; i ++){              //xs
-//                    for(int j = 0; j < utilityArray[i].length; j ++){       //ys
-//                        if(utilityArray[i][j] != null){
-//                            double reward = rewardArray[i][j];              //value of reward = reward at that location
-//                            candidateUtils = new ArrayList<>();             //wipes the arraylist
-//                            for (int k = 0; k < actions.size(); k++) {      //all acceleration options
-//                                int x = i + actions.get(k).x;
-//                                int y = j + actions.get(k).y;
-//                                if(utilityArray[i][j] != null && utilityArray[x][y] != null && utilityArray[x][y] != 100 && utilityArray[x][y] != 100){
-//                                    candidateUtils.add(reward + discountFactor * (0.8 * (utilityArray[x][y]) + 0.2 * (utilityArray[i][j])));
-//                                }
-//                            }
-//                            //Choose max utility out of all the options
-//                            double temp = utilityArray[i][j];
-//                            utilityArray[i][j] = (Collections.max(candidateUtils));
-//                            if (Math.abs(utilityArray[i][j] - temp) > change) {
-//                                change = Math.abs(utilityArray[i][j] - temp);
-//                                //System.out.println(change);
-//                            }
-//                        }
-//                    }
-//                }
-//                    //debugging prints
-//                    
-//                    System.out.println("ITERATION #: " + count);
-//                    System.out.println("LARGEST CHANGE: " + change);
-//                    for(int i = 0; i < track.map.length; i ++){
-//                        for(int j = 0; j < track.map[i].length; j ++){
-//                            if(utilityArray[i][j] != null){
-//                            System.out.println("(" + i + ", " + j + ") " + utilityArray[i][j]);
-//                            }
-//                        }
-//                    }
-//                count = count + 1;
-//                }
+            count = 1;  //need a non-zero count to enter the loop
             while (conv == false){
                 conv = checkConv();
+                    change = 0.0;   //set change to zero initially
                 for(int i = 0; i < tupleList.size(); i ++){                 //List of Xs and Ys on the track
-                        if(utilityArray[tupleList.get(i).x][tupleList.get(i).y] != null){
                             double reward = rewardArray[tupleList.get(i).x][tupleList.get(i).y];              //value of reward = reward at that location
                             candidateUtils = new ArrayList<>();             //wipes the arraylist
                             for (int k = 0; k < actions.size(); k++) {      //all acceleration options
                                 int x = tupleList.get(i).x + actions.get(k).x;
                                 int y = tupleList.get(i).y + actions.get(k).y;
-                                if(utilityArray[tupleList.get(i).x][tupleList.get(i).y] != null && utilityArray[x][y] != null && utilityArray[x][y] != 100 && utilityArray[tupleList.get(i).x][tupleList.get(i).y] != 100){
+                                if(utilityArray[tupleList.get(i).x][tupleList.get(i).y] != null && utilityArray[x][y] != null){
                                     candidateUtils.add(reward + discountFactor * (0.8 * (utilityArray[x][y]) + 0.2 * (utilityArray[tupleList.get(i).x][tupleList.get(i).y])));
                                 }
                             }
@@ -133,7 +94,6 @@ public class ValueIteration {
                                 change = Math.abs(utilityArray[tupleList.get(i).x][tupleList.get(i).y] - temp);
                                 //System.out.println(change);
                             }
-                        }
                     }
                     //debugging prints
                     
@@ -148,6 +108,7 @@ public class ValueIteration {
                     }
                 count = count + 1;
                 }
+            //printArray(utilityArray);
     }
     
     //print utility array
