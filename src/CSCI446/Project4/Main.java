@@ -11,19 +11,19 @@ public class Main {
 
     public static void main(String[] args) throws Exception, IOException {
         //L-Track simulator
-        startSimulator("L-track", new SARSA(.5, .5), false);
+        //startSimulator("L-track", new SARSA(.5, .5), false);
         startSimulator("L-track"); //These are for Value Iteration
         //O-Track Simulator
-        startSimulator("O-track", new SARSA(.5, .5), false);
+        //startSimulator("O-track", new SARSA(.5, .5), false);
         startSimulator("O-track");
         //R-Track Simulator
-        startSimulator("R-track", new SARSA(.5, .5), false);
+        //startSimulator("R-track", new SARSA(.5, .5), false);
         startSimulator("R-track");
 
 
 
         //R-Track Simulator startOver: Loops or takes forever and a half.
-        startSimulator("R-track", new SARSA(1, 1), true);
+        //startSimulator("R-track", new SARSA(1, 1), true);
     }
 
     private static void startSimulator(String trackName, SARSA sarsa, boolean startOver) throws Exception {

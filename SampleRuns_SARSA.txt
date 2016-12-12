@@ -1,0 +1,94 @@
+Starting SARSA simulator for track: L-track with start from beginning: false
+    Simulation number: 1
+    Iteration: 158 Result: Finished
+
+    Simulation number: 2
+    Iteration: 577 Result: Finished
+
+    Simulation number: 3
+    Iteration: 708 Result: Finished
+
+    Simulation number: 4
+    Iteration: 234 Result: Finished
+
+    Simulation number: 5
+    Iteration: 3467 Result: Finished
+
+    Simulation number: 6
+    Iteration: 4233 Result: Finished
+
+    Simulation number: 7
+    Iteration: 75 Result: Finished
+
+    Simulation number: 8
+    Iteration: 1892 Result: Finished
+
+    Simulation number: 9
+    Iteration: 2809 Result: Finished
+
+    Simulation number: 10
+    Iteration: 6912 Result: Finished
+
+
+Starting SARSA simulator for track: O-track with start from beginning: false
+    Simulation number: 1
+    Iteration: 216 Result: Finished
+
+    Simulation number: 2
+    Iteration: 276 Result: Finished
+
+    Simulation number: 3
+    Iteration: 122 Result: Finished
+
+    Simulation number: 4
+    Iteration: 110 Result: Finished
+
+    Simulation number: 5
+    Iteration: 177 Result: Finished
+
+    Simulation number: 6
+    Iteration: 110 Result: Finished
+
+    Simulation number: 7
+    Iteration: 131 Result: Finished
+
+    Simulation number: 8
+    Iteration: 20 Result: Finished
+
+    Simulation number: 9
+    Iteration: 263 Result: Finished
+
+    Simulation number: 10
+    Iteration: 127 Result: Finished
+
+
+Starting SARSA simulator for track: R-track with start from beginning: false
+    Simulation number: 1
+    Iteration: 29101 Result: Finished
+
+    Simulation number: 2
+    Iteration: 69379 Result: Finished
+
+    Simulation number: 3
+    Iteration: 19832 Result: Finished
+
+    Simulation number: 4
+    Iteration: 8604 Result: Finished
+
+    Simulation number: 5
+    Iteration: 22775 Result: Finished
+
+    Simulation number: 6
+    Iteration: 8038 Result: Finished
+
+    Simulation number: 7
+    Iteration: 11427 Result: Finished
+
+    Simulation number: 8
+    Iteration: 95366 Result: Finished
+
+    Simulation number: 9
+    Iteration: 1012 Result: Finished
+
+    Simulation number: 10
+    Iteration: 7206 Result: Finished

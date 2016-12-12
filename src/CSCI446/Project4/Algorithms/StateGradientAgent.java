@@ -55,7 +55,7 @@ public class StateGradientAgent {
     }
 
     public State findBestStateToTransitionTo(State currentState) {
-        double highest = Double.MIN_VALUE;
+        double highest = -100;
         int highestIndex = -1;
         ArrayList<State> states = new ArrayList<State>();
         //Enumerate all possible changes (Minus staying the same)
@@ -75,11 +75,18 @@ public class StateGradientAgent {
         for(int i = 0; i < states.size(); i++) {
             State state = states.get(i);
             //Position Checks
-            if(state.positionY >= 0 && state.positionY < utilityTable.length && state.positionX >= 0 && state.positionX < utilityTable[0].length && state.velocityY + 5 >= 0 && state.velocityY + 5 < utilityTable[0][0].length && state.velocityX + 5 >= 0 && state.velocityX + 5 < utilityTable[0][0][0].length) {
+            if(state.positionY >= 0 && state.positionY < utilityTable.length
+                    && state.positionX >= 0 && state.positionX < utilityTable[0].length
+                    && state.velocityY + 5 >= 0 && state.velocityY + 5 < utilityTable[0][0].length
+                    && state.velocityX + 5 >= 0 && state.velocityX + 5 < utilityTable[0][0][0].length) {
                 Double utilityValue = this.utilityTable[state.positionY][state.positionX][state.velocityY + 5][state.velocityX + 5];
-                if(utilityValue >= highest) {
-                    highest = utilityValue;
-                    highestIndex = i;
+                if(utilityValue != null) {
+                    if (utilityValue >= highest) {
+                        highest = utilityValue;
+                        highestIndex = i;
+                    }
+                } else {
+                    System.out.println();
                 }
             }
         }
