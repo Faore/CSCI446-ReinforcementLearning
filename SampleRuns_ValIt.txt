@@ -38,6 +38,7 @@ Starting Value Iteration simulator for track: O-track with no start from beginni
     Simulation number: 8
     Preperation Iterations: 39 Result: Success Steps: 31 Crashes: 4
     Simulation number: 9
+    
     Preperation Iterations: 39 Result: Success Steps: 31 Crashes: 3
     Simulation number: 10
     Preperation Iterations: 39 Result: Success Steps: 29 Crashes: 4
@@ -64,7 +65,6 @@ Starting Value Iteration simulator for track: R-track with no start from beginni
     Simulation number: 10
     Preperation Iterations: 34 Result: Success Steps: 30 Crashes: 4
 
-
 Starting Value Iteration simulator for track: R-track with start from beginning:
     Simulation number: 1
     Preperation Iterations: 34 Result: Success Steps: 37 Crashes: 5
@@ -84,5 +84,6 @@ Starting Value Iteration simulator for track: R-track with start from beginning:
     Preperation Iterations: 34 Result: Failure Steps: 50001 Crashes: 40029
     Simulation number: 9
     Preperation Iterations: 34 Result: Success Steps: 36 Crashes: 5
-    Simulation number: 10
-    Preperation Iterations: 34 Result: Success Steps: 36 Crashes: 4
+	Simulation number: 10
+	Preperation Iterations: 34 Result: Success Steps: 36 Crashes: 4
+BUILD SUCCESSFUL (total time: 103 minutes 7 seconds)
