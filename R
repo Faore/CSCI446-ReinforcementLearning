@@ -1,0 +1,68 @@
+run:
+Starting Value Iteration simulator for track: R-track with start from beginning:
+	Simulation number: 1
+	Preperation Iterations: 34 Result: Success Steps: 40 Crashes: 4
+	Simulation number: 2
+
+
+
+	Preperation Iterations: 34 Result: Success Steps: 37 Crashes: 7
+	Simulation number: 3
+
+
+
+
+
+
+	Preperation Iterations: 34 Result: Success Steps: 36 Crashes: 7
+	Simulation number: 4
+
+
+
+	Preperation Iterations: 34 Result: Success Steps: 39 Crashes: 4
+	Simulation number: 5
+
+
+
+
+
+
+
+
+
+
+
+
+	Preperation Iterations: 34 Result: Success Steps: 36 Crashes: 5
+	Simulation number: 6
+
+
+
+
+
+
+	Preperation Iterations: 34 Result: Success Steps: 34 Crashes: 5
+	Simulation number: 7
+
+
+
+	Preperation Iterations: 34 Result: Success Steps: 35 Crashes: 5
+	Simulation number: 8
+
+
+
+	Preperation Iterations: 34 Result: Success Steps: 40 Crashes: 5
+	Simulation number: 9
+
+
+
+
+
+
+	Preperation Iterations: 34 Result: Success Steps: 36 Crashes: 6
+	Simulation number: 10
+
+
+
+	Preperation Iterations: 34 Result: Success Steps: 38 Crashes: 5
+BUILD SUCCESSFUL (total time: 77 minutes 34 seconds)
