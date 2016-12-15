@@ -1,25 +1,89 @@
-Starting Value Iteration simulator for track: L-track with start from beginning:
-Simulation number: 1
-	Preperation Iterations: 20 Result: Success Steps: 14 Crashes: 1
-	Simulation number: 2
-	Preperation Iterations: 20 Result: Success Steps: 19 Crashes: 2
-	Simulation number: 3
-	Preperation Iterations: 20 Result: Success Steps: 15 Crashes: 1
-	Simulation number: 4
-	Preperation Iterations: 20 Result: Success Steps: 16 Crashes: 1
-	Simulation number: 5
-	Preperation Iterations: 20 Result: Success Steps: 15 Crashes: 1
-	Simulation number: 6
-	Preperation Iterations: 20 Result: Failure Steps: 50001 Crashes: 40021
-	Simulation number: 7
-	Preperation Iterations: 20 Result: Success Steps: 21 Crashes: 2
+Starting Value Iteration simulator for track: L-track with no start from beginning:
+    Simulation number: 1
+    Preperation Iterations: 20 Result: Success Steps: 14 Crashes: 1
+    Simulation number: 2
+    Preperation Iterations: 20 Result: Success Steps: 19 Crashes: 2
+    Simulation number: 3
+    Preperation Iterations: 20 Result: Success Steps: 15 Crashes: 1
+    Simulation number: 4
+    Preperation Iterations: 20 Result: Success Steps: 16 Crashes: 1
+    Simulation number: 5
+    Preperation Iterations: 20 Result: Success Steps: 15 Crashes: 1
+    Simulation number: 6
+    Preperation Iterations: 20 Result: Failure Steps: 50001 Crashes: 40021
+    Simulation number: 7
+    Preperation Iterations: 20 Result: Success Steps: 21 Crashes: 2
     Simulation number: 8
-    	Preperation Iterations: 20 Result: Failure Steps: 50001 Crashes: 39833
+    Preperation Iterations: 20 Result: Failure Steps: 50001 Crashes: 39833
     Simulation number: 9
-       	Preperation Iterations: 20 Result: Success Steps: 18 Crashes: 2
+    Preperation Iterations: 20 Result: Success Steps: 18 Crashes: 2
     Simulation number: 10
-    	Preperation Iterations: 20 Result: Success Steps: 14 Crashes: 1
+    Preperation Iterations: 20 Result: Success Steps: 14 Crashes: 1
+
+Starting Value Iteration simulator for track: O-track with no start from beginning:
+    Simulation number: 1
+    Preperation Iterations: 39 Result: Success Steps: 31 Crashes: 4
+    Simulation number: 2
+    Preperation Iterations: 39 Result: Success Steps: 27 Crashes: 2
+    Simulation number: 3
+    Preperation Iterations: 39 Result: Success Steps: 33 Crashes: 5
+    Simulation number: 4
+    Preperation Iterations: 39 Result: Success Steps: 29 Crashes: 3
+    Simulation number: 5
+    Preperation Iterations: 39 Result: Success Steps: 34 Crashes: 4
+    Simulation number: 6
+    Preperation Iterations: 39 Result: Success Steps: 32 Crashes: 3
+    Simulation number: 7
+    Preperation Iterations: 39 Result: Success Steps: 32 Crashes: 4
+    Simulation number: 8
+    Preperation Iterations: 39 Result: Success Steps: 31 Crashes: 4
+    Simulation number: 9
+    
+    Preperation Iterations: 39 Result: Success Steps: 31 Crashes: 3
+    Simulation number: 10
+    Preperation Iterations: 39 Result: Success Steps: 29 Crashes: 4
+
+Starting Value Iteration simulator for track: R-track with no start from beginning:
+    Simulation number: 1
+    Preperation Iterations: 34 Result: Success Steps: 36 Crashes: 4
+    Simulation number: 2
+    Preperation Iterations: 34 Result: Success Steps: 42 Crashes: 6
+    Simulation number: 3
+    Preperation Iterations: 34 Result: Success Steps: 39 Crashes: 4
+    Simulation number: 4
+    Preperation Iterations: 34 Result: Failure Steps: 50001 Crashes: 39788
+    Simulation number: 5
+    Preperation Iterations: 34 Result: Success Steps: 39 Crashes: 5
+    Simulation number: 6
+    Preperation Iterations: 34 Result: Success Steps: 33 Crashes: 5
+    Simulation number: 7
+    Preperation Iterations: 34 Result: Success Steps: 39 Crashes: 7
+    Simulation number: 8
+    Preperation Iterations: 34 Result: Success Steps: 35 Crashes: 6
+    Simulation number: 9
+    Preperation Iterations: 34 Result: Success Steps: 36 Crashes: 5
+    Simulation number: 10
+    Preperation Iterations: 34 Result: Success Steps: 30 Crashes: 4
 
 Starting Value Iteration simulator for track: R-track with start from beginning:
     Simulation number: 1
-    Preperation Iterations: 34 Result: Success Steps: 40 Crashes: 4
+    Preperation Iterations: 34 Result: Success Steps: 37 Crashes: 5
+    Simulation number: 2
+    Preperation Iterations: 34 Result: Success Steps: 33 Crashes: 5
+    Simulation number: 3
+    Preperation Iterations: 34 Result: Success Steps: 41 Crashes: 5
+    Simulation number: 4
+    Preperation Iterations: 34 Result: Success Steps: 31 Crashes: 5
+    Simulation number: 5
+    Preperation Iterations: 34 Result: Success Steps: 37 Crashes: 5
+    Simulation number: 6
+    Preperation Iterations: 34 Result: Success Steps: 39 Crashes: 5
+    Simulation number: 7
+    Preperation Iterations: 34 Result: Success Steps: 40 Crashes: 5
+    Simulation number: 8
+    Preperation Iterations: 34 Result: Failure Steps: 50001 Crashes: 40029
+    Simulation number: 9
+    Preperation Iterations: 34 Result: Success Steps: 36 Crashes: 5
+    Simulation number: 10
+    Preperation Iterations: 34 Result: Success Steps: 36 Crashes: 4
+BUILD SUCCESSFUL (total time: 103 minutes 7 seconds)
