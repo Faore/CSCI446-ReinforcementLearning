@@ -53,16 +53,18 @@ class Simulation {
 
     void startSimulation() throws Exception {
         int count = 0;
+        int crashCount = 0;
         Result stepResult = Result.Success;
         while(stepResult != Result.Finished){
             // Simulate stuff
             stepResult = stepSimulation();
-
+            if(stepResult == Result.Crash)
+                crashCount++;
             count++;
 //            System.out.println("\nIteration: " + count + " Result: " + stepResult.toString());
 //            track.printTrack();
         }
-        System.out.println(String.format("\tIteration: %d Result: %s", count, stepResult));
+        System.out.println(String.format("\tIteration: %d Result: %s, Crashes: %d", count, stepResult, crashCount));
         System.out.println();
     }
 }
